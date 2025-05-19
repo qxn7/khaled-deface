@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Owned by Khaled</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: #00ff00;
+      font-family: monospace;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 1;
+      color: white;
+    }
+
+    h1 {
+      font-size: 60px;
+      color: red;
+      text-shadow: 0 0 20px red, 0 0 40px red;
+    }
+
+    .tagline {
+      font-size: 24px;
+      color: #0f0;
+      text-shadow: 0 0 10px #0f0;
+      margin-top: 20px;
+    }
+
+    img {
+      width: 200px;
+      border-radius: 50%;
+      box-shadow: 0 0 20px #0f0;
+      margin-top: 30px;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Matrix Rain Effect -->
+  <canvas id="matrix"></canvas>
+
+  <!-- Sound Effect -->
+  <audio autoplay loop>
+    <source src="https://files.catbox.moe/8gkb4d.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h1>تم اختراق الموقع</h1>
+    <div class="tagline">بواسطة: <strong>Khaled</strong></div>
+    <div class="tagline">"جيش من رجل واحد"</div>
+    <img src="https://i.imgur.com/4M7IWwP.png" alt="Hacker">
+  </div>
+
+  <!-- Matrix Script -->
+  <script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = '01';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0f0';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 35);
+  </script>
+</body>
+</html>
